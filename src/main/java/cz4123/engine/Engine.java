@@ -156,16 +156,10 @@ public class Engine {
     private void findMinMaxValue(List<Integer> positions, String col,
                                  Pair<Integer, Integer> monthYearPair) {
         List<BigDecimal> dataCol;
-        Category maxCategory;
-        Category minCategory;
         if (Objects.equals(col, HUMIDITY)) {
             dataCol = this.storage.getHumidityColByPos(positions);
-            maxCategory = Category.MAX_HUMIDITY;
-            minCategory = Category.MIN_HUMIDITY;
         } else {
             dataCol = this.storage.getTemperatureColByPos(positions);
-            maxCategory = Category.MAX_TEMPERATURE;
-            minCategory = Category.MIN_TEMPERATURE;
         }
 
         var minResMap = this.minResMap.get(col);
