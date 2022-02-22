@@ -1,7 +1,8 @@
 .idea/
 __MACOSX/
 SingaporeWeather.csv
-ScanResult.csv
+ScanResult*.csv
+preprocess/
 
 # Compiled class file
 *.class

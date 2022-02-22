@@ -53,8 +53,9 @@ public class Engine {
     }
 
     public void query(String outputFile) {
-        Iterable<List<Integer>> positionsIterable = this.storage.getPositionsIterable();
-        for (List<Integer> positions : positionsIterable) {
+        while (this.storage.hasNext()) {
+            System.out.println("Get data");
+            var positions = this.storage.next();
             findResult(positions);
         }
 

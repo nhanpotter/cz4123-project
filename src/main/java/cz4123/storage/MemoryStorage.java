@@ -2,24 +2,32 @@ package cz4123.storage;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MemoryStorage implements Storage {
+public class MemoryStorage extends Storage {
     Data data;
+    private boolean start;
 
     public MemoryStorage(String csvFile) {
-        this.data = Utils.parseCSV(csvFile);
+        this.data = Utils.parseCSV(csvFile, true);
+        this.start = true;
+
+        // Make sure id increase monotonically
+        int size = this.data.positionCol.size();
+        assert this.data.positionCol.get(size - 1) == size - 1;
     }
 
-    /**
-     * getPositionsIterable return iterable of 1 whole list of positions
-     */
-    public Iterable<List<Integer>> getPositionsIterable() {
-        List<List<Integer>> iterable = new ArrayList<>();
-        iterable.add(this.data.positionCol);
-        return iterable;
+    public boolean hasNext() {
+        if (start) {
+            start = false;
+            return true;
+        }
+        return false;
+    }
+
+    public List<Integer> next() {
+        return this.data.positionCol;
     }
 
     public List<String> getStationColByPos(List<Integer> positions) {
@@ -44,20 +52,5 @@ public class MemoryStorage implements Storage {
         return positions.stream().map(
                 index -> this.data.humidityCol.get(index)
         ).collect(Collectors.toList());
-    }
-
-    public void writeToCSV(List<Result> results, String outputFile) {
-        List<String[]> list = new ArrayList<>();
-
-        for (var result : results) {
-            String timestampStr = Utils.convertString(result.date);
-            String station = result.station;
-            String category = result.category;
-            String valueStr = result.value.toString();
-            String[] record = {timestampStr, station, category, valueStr};
-            list.add(record);
-        }
-
-        Utils.writeCSV(list, outputFile);
     }
 }

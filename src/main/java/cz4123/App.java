@@ -1,6 +1,7 @@
 package cz4123;
 
 import cz4123.engine.Engine;
+import cz4123.storage.DiskStorage;
 import cz4123.storage.MemoryStorage;
 import cz4123.storage.Storage;
 
@@ -9,6 +10,7 @@ import java.io.File;
 public class App {
     public static final String CSV_FILE = "SingaporeWeather.csv";
     public static final String OUTPUT_FILE = "ScanResult.csv";
+    public static final String OUTPUT_FILE2 = "ScanResult2.csv";
     public static final int YEAR1 = 2011;
     public static final int YEAR2 = 2021;
     public static final String STATION = "Paya Lebar";
@@ -22,6 +24,7 @@ public class App {
         }
 
         task1();
+        task2();
         System.out.println("Done");
     }
 
@@ -31,5 +34,13 @@ public class App {
         Engine engine = new Engine(storage, YEAR1, YEAR2, STATION);
         engine.query(OUTPUT_FILE);
         System.out.println("Finish Task 1");
+    }
+
+    public static void task2() {
+        System.out.println("Running Task 2");
+        Storage storage = new DiskStorage(CSV_FILE);
+        Engine engine = new Engine(storage, YEAR1, YEAR2, STATION);
+        engine.query(OUTPUT_FILE2);
+        System.out.println("Finish Task 2");
     }
 }
