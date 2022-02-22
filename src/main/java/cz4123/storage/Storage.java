@@ -5,17 +5,15 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface Storage {
-    public abstract Iterable<List<Integer>> getPositionsIterable();
+    Iterable<List<Integer>> getPositionsIterable();
 
-    public abstract List<String> getStationColByPos(List<Integer> positions);
+    List<String> getStationColByPos(List<Integer> positions);
 
+    List<LocalDateTime> getTimestampColByPos(List<Integer> positions);
 
-    public abstract List<LocalDateTime> getTimestampColByPos(List<Integer> positions);
+    List<BigDecimal> getTemperatureColByPos(List<Integer> positions);
 
+    List<BigDecimal> getHumidityColByPos(List<Integer> positions);
 
-    public abstract List<BigDecimal> getTemperatureColByPos(List<Integer> positions);
-
-    public abstract List<BigDecimal> getHumidityColByPos(List<Integer> positions);
-
-    public abstract void writeToCSV(List<Result> results, String outputFile);
+    void writeToCSV(List<Result> results, String outputFile);
 }
