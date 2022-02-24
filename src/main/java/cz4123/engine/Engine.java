@@ -25,8 +25,8 @@ public class Engine {
     Map<String, Map<Pair<Integer, Integer>, BigDecimal>> minValueMap;
     Map<String, Map<Pair<Integer, Integer>, BigDecimal>> maxValueMap;
     // Store results date
-    Map<String, Map<Pair<Integer, Integer>, Set<LocalDate>>> minResMap;
-    Map<String, Map<Pair<Integer, Integer>, Set<LocalDate>>> maxResMap;
+    Map<String, Map<Pair<Integer, Integer>, Set<LocalDate>>> minDateMap;
+    Map<String, Map<Pair<Integer, Integer>, Set<LocalDate>>> maxDateMap;
 
     public Engine(Storage storage, Integer year1, Integer year2, String station) {
         this.storage = storage;
@@ -43,13 +43,13 @@ public class Engine {
         this.maxValueMap.put(HUMIDITY, new HashMap<>());
         this.maxValueMap.put(TEMPERATURE, new HashMap<>());
 
-        this.minResMap = new HashMap<>();
-        this.minResMap.put(HUMIDITY, new HashMap<>());
-        this.minResMap.put(TEMPERATURE, new HashMap<>());
+        this.minDateMap = new HashMap<>();
+        this.minDateMap.put(HUMIDITY, new HashMap<>());
+        this.minDateMap.put(TEMPERATURE, new HashMap<>());
 
-        this.maxResMap = new HashMap<>();
-        this.maxResMap.put(HUMIDITY, new HashMap<>());
-        this.maxResMap.put(TEMPERATURE, new HashMap<>());
+        this.maxDateMap = new HashMap<>();
+        this.maxDateMap.put(HUMIDITY, new HashMap<>());
+        this.maxDateMap.put(TEMPERATURE, new HashMap<>());
     }
 
     public void query(String outputFile) {
@@ -61,7 +61,7 @@ public class Engine {
 
         // Write results to file
         List<Result> results = new ArrayList<>();
-        for (var categoryMapEntry : this.minResMap.entrySet()) {
+        for (var categoryMapEntry : this.minDateMap.entrySet()) {
             String minCategory;
             if (Objects.equals(categoryMapEntry.getKey(), HUMIDITY)) {
                 minCategory = Category.MIN_HUMIDITY.toString();
@@ -76,7 +76,7 @@ public class Engine {
             }
         }
 
-        for (var categoryMapEntry : this.maxResMap.entrySet()) {
+        for (var categoryMapEntry : this.maxDateMap.entrySet()) {
             String maxCategory;
             if (Objects.equals(categoryMapEntry.getKey(), HUMIDITY)) {
                 maxCategory = Category.MAX_HUMIDITY.toString();
@@ -163,8 +163,8 @@ public class Engine {
             dataCol = this.storage.getTemperatureColByPos(positions);
         }
 
-        var minResMap = this.minResMap.get(col);
-        var maxResMap = this.maxResMap.get(col);
+        var minResMap = this.minDateMap.get(col);
+        var maxResMap = this.maxDateMap.get(col);
         var minValueMap = this.minValueMap.get(col);
         var maxValueMap = this.maxValueMap.get(col);
 
