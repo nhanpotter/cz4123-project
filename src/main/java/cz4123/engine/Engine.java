@@ -24,7 +24,7 @@ public class Engine {
     // Store results. Pair<Year, Month>
     Map<String, Map<Pair<Integer, Integer>, BigDecimal>> minValueMap;
     Map<String, Map<Pair<Integer, Integer>, BigDecimal>> maxValueMap;
-    // Store positions of results
+    // Store results date
     Map<String, Map<Pair<Integer, Integer>, Set<LocalDate>>> minResMap;
     Map<String, Map<Pair<Integer, Integer>, Set<LocalDate>>> maxResMap;
 
